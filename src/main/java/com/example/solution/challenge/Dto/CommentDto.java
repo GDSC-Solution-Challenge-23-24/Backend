@@ -8,5 +8,5 @@ public class CommentDto {
     private String content;
     private Long userId;
     private Long boardId;
-    private Long parent;	//부모댓글 id
+    private Long parent;	//부모 댓글 id
 }
