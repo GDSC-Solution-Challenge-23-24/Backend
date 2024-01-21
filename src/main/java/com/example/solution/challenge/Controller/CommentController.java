@@ -36,6 +36,7 @@ public class CommentController {
         return ResponseEntity.status(HttpStatus.CREATED).body("댓글 등록 성공");
     }
 
+
     //대댓글 등록
 
     //게시판에 달린 댓글&대댓글 계층 목록 확인
