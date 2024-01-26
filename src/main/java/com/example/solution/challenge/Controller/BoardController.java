@@ -40,6 +40,11 @@ public class BoardController {
     }
 
     // 특정 ID의 게시글 조회
+    @GetMapping("/{id}")
+    public ResponseEntity<Board> getBoardById(@PathVariable Long id) {
+        Optional<Board> board = boardService.getBoardById(id);
+        return board.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
 
     // 특정 ID의 게시글 업데이트
 
