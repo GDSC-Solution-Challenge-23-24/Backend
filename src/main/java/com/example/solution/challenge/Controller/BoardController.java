@@ -54,5 +54,9 @@ public class BoardController {
     }
 
     // 특정 ID의 게시글 삭제
-
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteBoard(@PathVariable Long id) {
+        boardService.deleteBoard(id);
+        return ResponseEntity.noContent().build();
+    }
 }
