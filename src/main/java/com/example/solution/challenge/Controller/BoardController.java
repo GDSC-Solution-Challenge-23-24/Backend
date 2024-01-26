@@ -47,6 +47,11 @@ public class BoardController {
     }
 
     // 특정 ID의 게시글 업데이트
+    @PutMapping("/{id}")
+    public ResponseEntity<Board> updateBoard(@PathVariable Long id, @RequestBody BoardDto boardDto) {
+        Board updatedBoard = boardService.updateBoard(id, boardDto);
+        return updatedBoard != null ? ResponseEntity.ok(updatedBoard) : ResponseEntity.notFound().build();
+    }
 
     // 특정 ID의 게시글 삭제
 
