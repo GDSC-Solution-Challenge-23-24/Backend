@@ -59,5 +59,10 @@ public class CommentController {
     }
 
     //댓글&대댓글 삭제
+    @PatchMapping("/delete/{comment_id}")
+    public ResponseEntity<String> deleteComment(@PathVariable Long comment_id) {
+        commentService.deleteComment(comment_id);
+        return ResponseEntity.noContent().build();
+    }
 
 }
