@@ -38,7 +38,11 @@ public class CommentController {
 
 
     //대댓글 등록
-
+    @PostMapping("/reply/")
+    public ResponseEntity<String> replyInsert(@RequestBody CommentDto commentDto)  {
+        commentService.postReplyComment(commentDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body("대댓글 등록 성공");
+    }
     //게시판에 달린 댓글&대댓글 계층 목록 확인
 
     //댓글&대댓글 수정
