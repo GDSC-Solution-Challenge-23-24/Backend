@@ -50,7 +50,13 @@ public class CommentController {
         List<CommentListDto> comments = commentService.getCommentHierarchy(boardId);
         return new ResponseEntity<>(comments, HttpStatus.OK);
     }
+
     //댓글&대댓글 수정
+    @PatchMapping("/update/{comment_id}")
+    public ResponseEntity<String> updateComment(@PathVariable Long comment_id, @RequestBody CommentUpdateDto commentDto) {
+        commentService.updateComment(comment_id, commentDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body("댓글 수정 성공");
+    }
 
     //댓글&대댓글 삭제
 
