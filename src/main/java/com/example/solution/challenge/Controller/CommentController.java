@@ -43,8 +43,13 @@ public class CommentController {
         commentService.postReplyComment(commentDto);
         return ResponseEntity.status(HttpStatus.CREATED).body("대댓글 등록 성공");
     }
-    //게시판에 달린 댓글&대댓글 계층 목록 확인
 
+    //게시판에 달린 댓글&대댓글 계층 목록 확인
+    @GetMapping("/list/{board_id}")
+    public ResponseEntity<List<CommentListDto>> getCommentHierarchy(@PathVariable("board_id") Long boardId) {
+        List<CommentListDto> comments = commentService.getCommentHierarchy(boardId);
+        return new ResponseEntity<>(comments, HttpStatus.OK);
+    }
     //댓글&대댓글 수정
 
     //댓글&대댓글 삭제
