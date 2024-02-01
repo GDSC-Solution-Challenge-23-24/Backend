@@ -1,11 +1,10 @@
+// Service  CommentService
+
 package com.example.solution.challenge.Service;
 
 import java.util.ArrayList;
-
 import java.util.List;
-
 import java.util.Optional;
-
 import org.springframework.stereotype.Service;
 
 import com.example.solution.challenge.Dto.CommentDto;
@@ -22,6 +21,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
+
 public class CommentService {
     private final CommentRepository commentRepository;
     private final UserRepository userRepository;
@@ -42,7 +42,7 @@ public class CommentService {
         commentRepository.save(newComment);
     }
 
-    //대댓글 등록
+    // 대댓글(자식) 등록
     public void postReplyComment(CommentDto commentDto) {
         User user= userRepository.findById(commentDto.getUserId()).orElseThrow(NullPointerException::new);
         Board board= boardRepository.findById(commentDto.getBoardId()).orElseThrow(NullPointerException::new);
@@ -51,18 +51,19 @@ public class CommentService {
         newReplyComment.setContent(commentDto.getContent());
         newReplyComment.setUser(user);
         newReplyComment.setBoard(board);
-        newReplyComment.setDepth(1L);	//대댓글이니 1로 설정
+        newReplyComment.setDepth(1L);	// 대댓글이니 깊이를 1로 설정
         newReplyComment.setParent(commentDto.getParent());
 
         commentRepository.save(newReplyComment);
     }
 
-    //게시판 댓글&대댓글 목록
-    public List<CommentListDto> getCommentHierarchy(Long boardId) {
-        // 루트 댓글(부모 댓글, 즉 parent가 0인 댓글)을 가져오기
+    // 게시판 댓글&대댓글 목록
+    public List<CommentListDto> getCommentHierarchy(Long boardId) { // 댓글 계층 구조 가져오기
+
+        // 원댓글(부모댓글은 parent가 0) 가져오기
         List<Comment> rootComments = commentRepository.findRootComments(boardId);
 
-        // 각 루트 댓글에 대해 하위 댓글들을 재귀적으로 가져와 계층 구조를 형성
+        // 원댓글의 대댓글을 재귀적으로 가져오기 (부모의 하위인 자식 댓글 -> 계층 구조)
         List<CommentListDto> rootCommentsDTO = new ArrayList<>();
         for (Comment rootComment : rootComments) {
             CommentListDto rootCommentDTO = convertToDTO(rootComment);
@@ -70,12 +71,13 @@ public class CommentService {
             rootCommentsDTO.add(rootCommentDTO);
         }
 
+        // 원댓글 Dto 리턴
         return rootCommentsDTO;
     }
 
-    private List<CommentListDto> getChildrenCommentsDTO(Long parentId) {
-        // 특정 부모 댓글에 속한 자식 댓글을 가져오기
-        List<Comment> children = commentRepository.findByParent(parentId);
+    private List<CommentListDto> getChildrenCommentsDTO(Long parentId) { // 특정 부모 댓글에 속한 자식 댓글을 가져오기
+
+        List<Comment> children = commentRepository.findByParent(parentId); // 부모 댓글 아이디로 검색
 
         List<CommentListDto> childrenDTO = new ArrayList<>();
         for (Comment child : children) {
@@ -83,11 +85,14 @@ public class CommentService {
             childDTO.setChildren(getChildrenCommentsDTO(child.getId()));
             childrenDTO.add(childDTO);
         }
+
+        // 자식 댓글 (대댓글) Dto 리턴
         return childrenDTO;
     }
 
-    private CommentListDto convertToDTO(Comment comment) {
+    private CommentListDto convertToDTO(Comment comment) { // 변환
         CommentListDto commentDTO = new CommentListDto();
+
         commentDTO.setContent(comment.getContent());
         commentDTO.setDepth(comment.getDepth());
         commentDTO.setParent(comment.getParent());
@@ -97,42 +102,39 @@ public class CommentService {
         return commentDTO;
     }
 
-    //댓글&대댓글 수정 -> 내용만 변경
+    // (부모댓글, 자식댓글) 수정 -> 내용만 변경
     public void updateComment(Long comment_id, CommentUpdateDto commentDto) {
 
         // 댓글 ID에 해당하는 댓글 정보 찾기
         Optional<Comment> optionalComment = commentRepository.findById(comment_id);
+
         if (optionalComment.isPresent()) {
             Comment existingComment= optionalComment.get();
-            existingComment.setContent(commentDto.getContent());
+            existingComment.setContent(commentDto.getContent()); // 존재하는 댓글의 내용 변경
 
             commentRepository.save(existingComment);
         }
     }
 
-    //댓글&대댓글 삭제
+    // (부모댓글, 자식댓글) 삭제
     public void deleteComment(Long comment_id) {
         Optional<Comment> optionalComment = commentRepository.findById(comment_id);
         Long childCount= commentRepository.countByParent(comment_id);
 
-        if (optionalComment.isPresent()) {
-            //자식 댓글이면 바로 삭제
-            if (optionalComment.get().getDepth()==1) {
+        if (optionalComment.isPresent()) { // 존재하는 경우만 삭제 작업 진행 가능
+            if (optionalComment.get().getDepth()==1) { // 자식 댓글이면 바로 삭제
                 commentRepository.deleteById(comment_id);
             }
-            else //부모 댓글
+            else // 부모 댓글이면 두 가지 가능성 (자식 유무)
             {
-                if (childCount==0L){ //자식없는 부모댓글이면 바로 삭제
+                if (childCount==0L){ // 자식 없는 부모 -> 바로 삭제 가능
                     commentRepository.deleteById(comment_id);
-                }else{ //자식있는 부모댓글이면 -> 삭제여부 1로 변경
+                } else{ // 자식 있는 부모 -> 삭제 여부 1(true)로 변경
                     Comment existingComment= optionalComment.get();
                     existingComment.setIsDeleted(true);
                     commentRepository.save(existingComment);
                 }
             }
-
         }
     }
-
-
 }

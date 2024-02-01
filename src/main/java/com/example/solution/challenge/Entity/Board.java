@@ -1,3 +1,5 @@
+// Entity Board
+
 package com.example.solution.challenge.Entity;
 
 import jakarta.persistence.Entity;

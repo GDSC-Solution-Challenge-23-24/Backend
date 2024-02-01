@@ -1,3 +1,5 @@
+// Entity   Comment
+
 package com.example.solution.challenge.Entity;
 
 //import javax.persistence.Column;

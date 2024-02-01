@@ -1,3 +1,7 @@
+// Controller  BoardController
+
+
+
 package com.example.solution.challenge.Controller;
 
 import com.example.solution.challenge.Dto.BoardDto;
@@ -28,18 +32,18 @@ public class BoardController {
         return boardService.getAllBoards();
     }
 
-    // 특정 ID의 게시글 조회
-    @GetMapping("/{id}")
-    public ResponseEntity<Board> getBoardById(@PathVariable Long id) {
-        Optional<Board> board = boardService.getBoardById(id);
-        return board.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
-    }
-
     // 새로운 게시글 생성
     @PostMapping
     public ResponseEntity<Board> createBoard(@RequestBody BoardDto boardDto) {
         Board newBoard = boardService.createBoard(boardDto);
         return ResponseEntity.ok(newBoard);
+    }
+
+    // 특정 ID의 게시글 조회
+    @GetMapping("/{id}")
+    public ResponseEntity<Board> getBoardById(@PathVariable Long id) {
+        Optional<Board> board = boardService.getBoardById(id);
+        return board.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     // 특정 ID의 게시글 업데이트

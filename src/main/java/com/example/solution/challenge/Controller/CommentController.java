@@ -1,5 +1,9 @@
+// Controller  CommentController
+
+
 package com.example.solution.challenge.Controller;
 
+// 하단 import 문 오류는 삭제된 파일이라서 발생하는거고 곧 추가할게요
 import com.example.solution.challenge.Dto.CommentDto;
 import com.example.solution.challenge.Dto.CommentListDto;
 import com.example.solution.challenge.Dto.CommentUpdateDto;
@@ -31,6 +35,7 @@ public class CommentController {
         commentService.postComment(commentDto);
         return ResponseEntity.status(HttpStatus.CREATED).body("댓글 등록 성공");
     }
+
 
     //대댓글 등록
     @PostMapping("/reply/")
