@@ -16,7 +16,10 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+
+// Board API
 @RequestMapping("/api/boards")
+
 public class BoardController {
 
     private final BoardService boardService;
