@@ -18,11 +18,13 @@ public class UserController {
         this.userService = userService;
     }
 
+    @PostMapping("/register")
     public ResponseEntity<String> registerUser(@RequestBody UserDto userDto) {
         userService.registerUser(userDto);
         return ResponseEntity.status(HttpStatus.CREATED).body("회원가입 성공");
     }
 
+    @PostMapping("/login")
     public ResponseEntity<String> loginUser(@RequestBody UserDto userDto) {
         return userService.loginUser(userDto)
                 .map(user -> ResponseEntity.ok("로그인 성공. 안녕하세요, " + userDto.getUsername()))
