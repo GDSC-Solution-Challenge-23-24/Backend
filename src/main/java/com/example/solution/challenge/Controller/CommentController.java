@@ -1,9 +1,7 @@
 // Controller  CommentController
 
-
 package com.example.solution.challenge.Controller;
 
-// 하단 import 문 오류는 삭제된 파일이라서 발생하는거고 곧 추가할게요
 import com.example.solution.challenge.Dto.CommentDto;
 import com.example.solution.challenge.Dto.CommentListDto;
 import com.example.solution.challenge.Dto.CommentUpdateDto;
@@ -25,6 +23,8 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
+
+// Comment API
 @RequestMapping("/api/comment")
 public class CommentController {
     private final CommentService commentService;
