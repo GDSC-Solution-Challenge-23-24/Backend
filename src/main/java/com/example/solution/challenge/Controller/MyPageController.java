@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.study.Entity.Board;
-import com.example.study.Entity.Comment;
-import com.example.study.Service.MyPageService;
+import com.example.solution.challenge.Entity.Board;
+import com.example.solution.challenge.Entity.Comment;
+import com.example.solution.challenge.Entity.User;
 
 import lombok.RequiredArgsConstructor;
 
