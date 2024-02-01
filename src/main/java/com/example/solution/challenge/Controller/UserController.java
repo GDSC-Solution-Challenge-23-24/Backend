@@ -1,5 +1,7 @@
 package com.example.solution.challenge.Controller;
 
+import com.example.solution.challenge.Dto.UserDto;
+import com.example.solution.challenge.Service.UserService;
 import com.example.study.Dto.UserDto;
 import com.example.study.Service.UserService;
 import org.springframework.http.HttpStatus;
