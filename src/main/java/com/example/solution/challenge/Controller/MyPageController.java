@@ -17,11 +17,9 @@ import com.example.solution.challenge.Entity.Comment;
 import com.example.solution.challenge.Entity.User;
 
 import lombok.RequiredArgsConstructor;
-
-// API 아직
-
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/api/mypage")
 
 public class MyPageController {
     private final MyPageService myPageService;
