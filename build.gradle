@@ -46,6 +46,9 @@ dependencies {
 	// org.hibernate.HibernateException  error 처리
 	implementation 'org.hibernate:hibernate-core:5.5.6.Final'
 
+    // swagger
+	implementation 'io.springfox:springfox-boot-starter:3.0.0'
+
 }
 
 /*
