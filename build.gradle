@@ -46,11 +46,14 @@ dependencies {
 
 }
 
+/*
 hibernate {
 	// Hibernate Dialect
 	dialect = 'org.hibernate.dialect.MySQLDialect'
 
 }
+*/
+ext['hibernate.dialect'] = 'org.hibernate.dialect.MySQLDialect'
 
 tasks.named('bootBuildImage') {
 	builder = 'paketobuildpacks/builder-jammy-base:latest'
