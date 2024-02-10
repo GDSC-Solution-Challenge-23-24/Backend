@@ -21,4 +21,10 @@ public class User {
 
     @Column(name = "password", nullable = false)
     private String password;
+
+    @Column(name = "affiliation", nullable=true)
+    private String affiliation;
+
+    @Column(name = "session_id")
+    private String sessionId;
 }
