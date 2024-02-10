@@ -40,6 +40,10 @@ dependencies {
 	// package javax.persistence error 처리
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 
+	//  javax.servlet.http.HttpServletRequest  error 처리
+	implementation 'javax.servlet:javax.servlet-api:3.1.0'
+
+
 }
 
 tasks.named('bootBuildImage') {
