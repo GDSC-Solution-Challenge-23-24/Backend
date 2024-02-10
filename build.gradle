@@ -53,7 +53,6 @@ hibernate {
 
 }
 */
-
 ext['hibernate.dialect'] = 'org.hibernate.dialect.MySQLDialect'
 
 tasks.named('bootBuildImage') {
