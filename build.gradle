@@ -1,7 +1,7 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '3.2.1'
-	id 'io.spring.dependency-management' version '1.1.4'
+	id 'org.springframework.boot' version '3.2.2'
+	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
 }
 
 group = 'com.example'
@@ -21,11 +21,10 @@ repositories {
 	mavenCentral()
 }
 
-// DB Swagger BCrypt
-
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+<<<<<<< HEAD
 
 	implementation 'mysql:mysql-connector-java:8.0.28'
 	implementation 'io.springfox:springfox-boot-starter:3.0.0'
@@ -34,9 +33,46 @@ dependencies {
 	implementation 'jakarta.servlet:jakarta.servlet-api:6.0.0' // 사용 중인 서블릿 API 버전으로 변경
 
 
+=======
+>>>>>>> 394425db5f3568fd2a0228287824c8286ad9534e
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	// MySQL
+	implementation 'mysql:mysql-connector-java:8.0.28'
+
+	// Swagger
+	implementation 'io.springfox:springfox-boot-starter:3.0.0'
+
+	// BCrypt
+	implementation 'org.mindrot:jbcrypt:0.4'
+
+	// package javax.persistence error 처리
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+	//  javax.servlet.http.HttpServletRequest  error 처리
+	implementation 'javax.servlet:javax.servlet-api:3.1.0'
+
+	// org.hibernate.HibernateException  error 처리
+	implementation 'org.hibernate:hibernate-core:5.5.6.Final'
+
+    // swagger
+	implementation 'io.springfox:springfox-boot-starter:3.0.0'
+
+}
+
+/*
+hibernate {
+	// Hibernate Dialect
+	dialect = 'org.hibernate.dialect.MySQLDialect'
+
+}
+*/
+ext['hibernate.dialect'] = 'org.hibernate.dialect.MySQLDialect'
+
+tasks.named('bootBuildImage') {
+	builder = 'paketobuildpacks/builder-jammy-base:latest'
 }
 
 tasks.named('test') {

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+
 @Entity
 @Table(name = "users")
 @Getter
@@ -19,4 +20,10 @@ public class User {
 
     @Column(name = "password", nullable = false)
     private String password;
+
+    @Column(name = "affiliation", nullable = false)
+    private String affiliation;
+
+    @Column(name = "session_id")
+    private String sessionId;
 }
