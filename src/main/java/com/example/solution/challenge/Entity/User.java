@@ -21,7 +21,7 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "affiliation", nullable=true)
+    @Column(name = "affiliation", nullable = false)
     private String affiliation;
 
     @Column(name = "session_id")
