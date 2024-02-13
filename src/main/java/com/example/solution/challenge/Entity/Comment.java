@@ -11,6 +11,7 @@ import org.hibernate.annotations.ColumnDefault;
 @Getter
 @Entity
 @Setter
+@Table(name = "comment")
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
