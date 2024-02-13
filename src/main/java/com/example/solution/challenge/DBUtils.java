@@ -9,12 +9,12 @@ public class DBUtils {
 
         String driver = "com.mysql.cj.jdbc.Driver";
 
-        String url = "jdbc:mysql://34.64.234.0:3306/togather-db?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul";
+        String url = "jdbc:mysql://34.64.234.0:3306/ToGather?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul";
 //      String url = "jdbc:mysql://127.0.0.1:3306/FreePreDB";
 
         String user = "root"; // 데이터 베이스 사용자의 접속 아이디 입력
 
-        String password = "to_gather135!"; // 데이터 베이스 사용자의 접속 비밀번호 입력
+        String password = "to_gather135"; // 데이터 베이스 사용자의 접속 비밀번호 입력
 //        String password = "rlacodms01";
 
         try {
