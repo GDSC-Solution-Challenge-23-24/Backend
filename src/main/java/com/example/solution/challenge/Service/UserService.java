@@ -1,6 +1,7 @@
 package com.example.solution.challenge.Service;
 
 import org.mindrot.jbcrypt.BCrypt;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.Optional;
 
@@ -17,6 +18,7 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
+    //회원가입
     public User registerUser(UserDto userDto){
         String encryptedPassword = BCrypt.hashpw(userDto.getPassword(), BCrypt.gensalt());
 
@@ -27,16 +29,19 @@ public class UserService {
         return userRepository.save(newUser);
     }
 
+    //로그인
     public Optional<User> loginUser(UserDto userDto) {
         Optional<User> userOptional = userRepository.findByUsername(userDto.getUsername());
 
         return userOptional.filter(user -> checkPassword(userDto.getPassword(), user.getPassword()));
     }
 
+    //비번확인
     public boolean checkPassword(String plainPassword, String hashedPassword){
         return BCrypt.checkpw(plainPassword, hashedPassword);
     }
 
+    //로그아웃
     public boolean logout(Long userId) {
         Optional<User> userOptional = userRepository.findById(userId);
         if (userOptional.isPresent()) {
@@ -49,6 +54,7 @@ public class UserService {
         }
     }
 
+    //회원탈퇴
     public boolean withdraw(Long userId) {
         Optional<User> userOptional = userRepository.findById(userId);
         if (userOptional.isPresent()) {
