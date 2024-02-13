@@ -23,10 +23,23 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+
+	//implementation 'mysql:mysql-connector-java:8.0.28'
+	//implementation 'io.springfox:springfox-boot-starter:3.0.0'
+	//implementation 'org.mindrot:jbcrypt:0.4'
+
+	implementation 'jakarta.servlet:jakarta.servlet-api:6.0.0' // 사용 중인 서블릿 API 버전으로 변경
+
+
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
+	runtimeOnly 'com.h2database:h2'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.security:spring-security-test'
+
 
 	// MySQL
 	implementation 'mysql:mysql-connector-java:8.0.28'
@@ -48,6 +61,12 @@ dependencies {
 
     // swagger
 	implementation 'io.springfox:springfox-boot-starter:3.0.0'
+
+	//p6spy 적용 : SQL로그 보기 쉽도록
+	implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.7.1'
+	implementation 'com.auth0:java-jwt:3.18.2'
+
+
 
 }
 
