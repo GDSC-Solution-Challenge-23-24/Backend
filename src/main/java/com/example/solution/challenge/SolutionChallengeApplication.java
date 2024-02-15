@@ -12,3 +12,5 @@ public class SolutionChallengeApplication {
 	}
 
 }
+
+// api 확인 완료 커밋
