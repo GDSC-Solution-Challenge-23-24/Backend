@@ -1,35 +1,34 @@
 package com.example.solution.challenge.Config;
 
+import io.swagger.v3.oas.models.Components;
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import springfox.documentation.builders.ApiInfoBuilder;
-import springfox.documentation.builders.PathSelectors;
-import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.service.ApiInfo;
-import springfox.documentation.spi.DocumentationType;
-import springfox.documentation.spring.web.plugins.Docket;
 
 @Configuration
 public class SwaggerConfig {
 
-    // http://localhost:8080/swagger-ui/index.html
-    @Bean
-    public Docket api() {
-        return new Docket(DocumentationType.OAS_30)
-                .useDefaultResponseMessages(false)
-                .select()
-                .apis(RequestHandlerSelectors.basePackage("com.example.solution.challenge.controller"))
-                .paths(PathSelectors.any())
-                .build()
-                .apiInfo(apiInfo());
+    private final String AUTH_TOKEN_HEADER = "Authorization";
+
+    private Info apiInfo() {
+        return new Info()
+                .title("Swaager API")
+                .description("Swagger API 테스트")
+                .version("1.0.0");
     }
 
-    private ApiInfo apiInfo() {
-        return new ApiInfoBuilder()
-                .title("Swagger Test")
-                .description("SwaggerConfig")
-                .version("3.0")
-                .build();
+    @Bean
+    public OpenAPI openAPI() {
+        return new OpenAPI()
+                .info(apiInfo())
+                .addSecurityItem(new SecurityRequirement().addList(AUTH_TOKEN_HEADER))
+                .components(new Components()
+                        .addSecuritySchemes(AUTH_TOKEN_HEADER, new SecurityScheme()
+                                .name(AUTH_TOKEN_HEADER)
+                                .type(SecurityScheme.Type.HTTP)
+                                .scheme("Bearer"))
+                );
     }
 
 }
