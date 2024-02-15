@@ -19,3 +19,10 @@ spring:
   mvc:
     pathmatch:
       matching-strategy : ant_path_matcher
+
+  # new swagger
+  springdoc:
+    default-consumes-media-type: application/json
+    default-produces-media-type: application/json
+      swagger-ui:
+        path: /swagger-ui.html
