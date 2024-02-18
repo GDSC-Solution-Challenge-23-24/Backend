@@ -7,6 +7,9 @@ import com.example.solution.challenge.Dto.BoardDto;
 import com.example.solution.challenge.Entity.Board;
 import com.example.solution.challenge.Repository.BoardRepository;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -68,4 +71,13 @@ public class BoardService {
         // 해당 id의 게시물 찾아서 삭제
         boardRepository.deleteById(id);
     }
+
+    public void promoteToPopularBoard(Long id) {
+        Board board = boardRepository.findById(id).orElse(null);
+        if (board != null) {
+            board.setIsPopular(true);
+            boardRepository.save(board);
+        }
+    }
+
 }

@@ -25,4 +25,7 @@ public class Board {
     @JoinColumn(name = "user_id")
     private User user;
 
+    private int likes;
+    private boolean IsPopular; // 실시간 인기글 여부
+
 }

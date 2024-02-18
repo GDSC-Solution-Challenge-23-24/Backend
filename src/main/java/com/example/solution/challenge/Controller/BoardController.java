@@ -49,11 +49,19 @@ public class BoardController {
         return board.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    // 특정 ID의 게시글 업데이트
+    // 특정 ID의 게시글 업데이트 & 실시간 인기글
     @PutMapping("/{id}")
     public ResponseEntity<Board> updateBoard(@PathVariable Long id, @RequestBody BoardDto boardDto) {
         Board updatedBoard = boardService.updateBoard(id, boardDto);
-        return updatedBoard != null ? ResponseEntity.ok(updatedBoard) : ResponseEntity.notFound().build();
+        if (updatedBoard != null) {
+            if (updatedBoard.getLikes() >= 10) {
+                boardService.promoteToPopularBoard(updatedBoard.getId());
+                return ResponseEntity.ok(updatedBoard);
+            }
+            return ResponseEntity.ok(updatedBoard);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     // 특정 ID의 게시글 삭제
