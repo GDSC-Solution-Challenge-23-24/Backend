@@ -38,4 +38,5 @@ public class Comment {
 
     @ColumnDefault("false")
     private Boolean isDeleted;
+
 }
