@@ -19,6 +19,8 @@ public class Board {
     private String title;
     private String content;
 
+    private int board_no; // 다중 게시판 구현을 위한 게시판 넘버
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
