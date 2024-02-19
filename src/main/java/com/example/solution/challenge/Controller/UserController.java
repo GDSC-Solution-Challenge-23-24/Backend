@@ -1,13 +1,15 @@
 package com.example.solution.challenge.Controller;
 
+import com.example.solution.challenge.Dto.UserDto;
+import com.example.solution.challenge.Service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import com.example.solution.challenge.Dto.UserDto;
-import com.example.solution.challenge.Service.UserService;
-import com.example.solution.challenge.Dto.UserDto;
-import com.example.solution.challenge.Service.UserService;
+import java.util.Optional;
 
 @RestController
 
@@ -28,9 +30,10 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> loginUser(@RequestBody UserDto userDto) {
+    public Optional<ResponseEntity<String>> loginUser(@RequestBody UserDto userDto) {
         return userService.loginUser(userDto)
-                .map(user -> ResponseEntity.ok("로그인 성공. 안녕하세요, " + userDto.getUsername()))
-                .orElse(ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("아이디나 비밀번호가 잘못되었습니다."));
+                .map(user -> ResponseEntity.ok("로그인 성공. 안녕하세요, " + userDto.getUsername()));
+
     }
+    //.orElse(ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("아이디나 비밀번호가 잘못되었습니다."));
 }
